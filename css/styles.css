@@ -407,55 +407,6 @@ cite { font-style: normal; font-size: .82rem; color: var(--ink-60); display: blo
 .bridge .btn { background: #fff; color: var(--teal); }
 .bridge .btn:hover { background: var(--coral-light); }
 
-/* ---------- quiz ---------- */
-.quiz { padding: 84px 0; background: var(--coral-light); }
-.quiz__progress {
-  height: 6px; background: rgba(255,255,255,.6);
-  border-radius: 999px; overflow: hidden; margin: 0 0 32px;
-}
-.quiz__progress span {
-  display: block; height: 100%; width: 0;
-  background: var(--coral); transition: width .35s ease;
-}
-.qcard {
-  background: #fff; border-radius: var(--radius);
-  box-shadow: var(--shadow); padding: 26px 28px; margin-bottom: 18px;
-}
-.qcard__num {
-  font-family: var(--mono); font-size: .8rem; font-weight: 500;
-  color: var(--coral); letter-spacing: .06em;
-}
-.qcard__q { font-size: 1.18rem; font-weight: 700; margin: 4px 0 18px; }
-.qopts { display: grid; gap: 10px; }
-.qopt {
-  display: flex; align-items: center; gap: 12px;
-  padding: 14px 18px; border-radius: 10px;
-  background: var(--bg-soft);
-  cursor: pointer; transition: background .12s ease;
-  font-size: 1rem;
-}
-.qopt:hover { background: var(--teal-light); }
-.qopt input { accent-color: var(--teal); width: 18px; height: 18px; cursor: pointer; }
-.qopt--chosen { background: var(--teal-light); font-weight: 600; }
-
-.quiz__result {
-  background: #fff; border-radius: var(--radius);
-  box-shadow: var(--shadow-lg); padding: 30px 32px; margin-top: 10px;
-}
-.result__list { padding-left: 0; list-style: none; margin: 18px 0 24px; counter-reset: r; }
-.result__list li {
-  counter-increment: r;
-  padding: 14px 0; border-top: 1px solid #eef2f1;
-}
-.result__list li::before {
-  content: counter(r);
-  font-family: var(--mono); color: var(--coral); font-weight: 500;
-  margin-right: 12px;
-}
-.result__q { color: var(--ink-60); font-size: .92rem; display: block; margin-bottom: 2px; }
-.result__a { font-weight: 700; }
-.quiz__actions { display: flex; gap: 12px; flex-wrap: wrap; }
-
 /* ---------- footer ---------- */
 .foot { background: #000000; color: rgba(255,255,255,.72); padding: 40px 0; font-size: .85rem; }
 .foot__prov { margin: 0 0 8px; }
@@ -483,6 +434,29 @@ cite { font-style: normal; font-size: .82rem; color: var(--ink-60); display: blo
 }
 .preview-more { margin-top: 24px; color: var(--ink-60); font-style: italic; }
 
+/* ---------- penetration SVG diagram ---------- */
+.pen-wrap { position: relative; margin: 18px 0 4px; }
+#penSVG { width: 100%; height: auto; display: block; }
+.pen-ray { transition: opacity .15s; }
+.pen-ray.dimmed { opacity: .18; }
+.pen-ray.highlighted .pen-solid { stroke-width: 4; }
+.pen-ray.highlighted .pen-label { font-size: 16px; }
+.pen-barrier.active rect { fill: rgba(30,188,186,.08); }
+
+.pen-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  padding: 14px 18px;
+  margin-bottom: 14px;
+  min-height: 54px;
+  font-size: .95rem;
+  transition: opacity .2s;
+}
+.pen-card__hint { color: var(--ink-60); font-style: italic; margin: 0; }
+.pen-card__title { font-weight: 700; color: var(--teal); margin: 0 0 4px; }
+.pen-card__body { margin: 0; }
+
 /* ---------- responsive ---------- */
 @media (max-width: 800px) {
   .misc-grid { grid-template-columns: 1fr; }
@@ -508,7 +482,28 @@ cite { font-style: normal; font-size: .82rem; color: var(--ink-60); display: blo
 /* ---------- print (prediction sheet) ---------- */
 @media print {
   body * { visibility: hidden; }
-  #quizResult, #quizResult * { visibility: visible; }
-  #quizResult { position: absolute; top: 0; left: 0; width: 100%; box-shadow: none; }
-  .quiz__actions { display: none; }
 }
+/* trigger question */
+.misc-trigger {
+  margin-top: 22px;
+  padding: 18px 20px;
+  background: var(--teal-light);
+  border-radius: 10px;
+}
+.misc-trigger p { margin: 0 0 6px; font-size: 1rem; font-weight: 600; }
+.misc-trigger p:last-child { margin: 0; }
+.misc-trigger__note { font-size: .88rem; color: var(--ink-60); font-weight: 400 !important; font-style: italic; }
+
+/* ---------- penetration diagram (canvas) ---------- */
+.pen3d-wrap { margin: 18px 0 0; overflow-x: auto; }
+.pen3d-info {
+  margin-top: 14px;
+  background: var(--coral-light);
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-size: .92rem;
+  min-height: 46px;
+}
+.pen3d-info__hint { color: var(--ink-60); font-style: italic; margin: 0; }
+.pen3d-info h5 { margin: 0 0 4px; font-size: 1rem; font-weight: 700; }
+.pen3d-info p  { margin: 0; color: var(--ink); }
