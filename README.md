@@ -5,11 +5,11 @@ using the MiniPIX radiation detector (CERN Timepix technology).
 
 ## Contents
 
-- `index.html` — pre-lab lesson (theory, detector guide, activity previews)
-- `activity-1.html` to `activity-5.html` — digital worksheets, fill and print
-- `css/` — shared styles
-- `js/` — lesson interactions
-- `assets/` — images and placeholders
+- `index.html` pre-lab lesson (theory, detector guide, activity previews)
+- `activity-1.html` to `activity-5.html` digital worksheets, fill and print
+- `css/` shared styles
+- `js/` lesson interactions
+- `assets/` images and placeholders
 
 ## Usage
 
