@@ -15,12 +15,11 @@
   <div class="ws-bar">
     <div class="ws-bar__inner">
       <span class="ws-bar__brand">
-        <img src="assets/timepix-logo.svg" alt="" onerror="this.style.display='none'">
+        <a href="index.html" aria-label="Home"><img src="assets/timepix-logo.svg" alt="TIMEPIX@school" onerror="this.style.display='none'"></a>
         Seeing the Invisible
       </span>
       <span class="ws-bar__actions">
         <a class="ws-back" href="index.html">Back to the lesson</a>
-        <button class="ws-print" onclick="window.print()">Print or Save as PDF</button>
       </span>
     </div>
   </div>
@@ -113,10 +112,12 @@
         case? What does this tell you about everyday materials?</p>
       <textarea rows="4"></textarea>
     </div>
-  </div>
 
-  <div class="ws-foot-actions">
-    <button class="btn" onclick="window.print()">Print or Save as PDF</button>
+    <div class="pred-summary" id="summary4">
+      <h4>Your predictions</h4>
+      <ul class="pred-summary__list" id="summaryList4"></ul>
+      <p class="pred-summary__note">Keep these in mind before you start measuring.</p>
+    </div>
   </div>
 
   <script>
@@ -144,6 +145,16 @@
         if (!el.classList.contains('selected')) el.style.opacity = '.4';
       });
       document.getElementById('conf4').classList.add('show');
+
+      const pred = document.querySelector('.iradio input[name="ir4"]:checked');
+      const conf = document.querySelector('.conf-btn.selected');
+      const ul = document.getElementById('summaryList4');
+      ul.innerHTML =
+        '<li><span class="pred-summary__q">Will KCl give more beta tracks than background?</span>' +
+        '<span class="pred-summary__a">' + (pred ? pred.closest('.iradio').textContent.trim() : 'No answer') + '</span></li>' +
+        '<li><span class="pred-summary__q">Confidence level</span>' +
+        '<span class="pred-summary__a">' + (conf ? conf.textContent.trim() : 'Not rated') + '</span></li>';
+      document.getElementById('summary4').classList.add('show');
     });
   </script>
 </body>

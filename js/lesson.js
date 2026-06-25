@@ -144,19 +144,7 @@ document.querySelectorAll('.misc-item').forEach(item => {
   sections.forEach(s => io.observe(s));
 })();
 
-/* ---------- sticky nav: dropdown toggle ---------- */
-(function navDropdown() {
-  const toggle = document.querySelector('.topnav__drop-toggle');
-  if (!toggle) return;
-  toggle.addEventListener('click', e => {
-    e.stopPropagation();
-    const open = toggle.getAttribute('aria-expanded') === 'true';
-    toggle.setAttribute('aria-expanded', String(!open));
-  });
-  document.addEventListener('click', () => {
-    if (toggle) toggle.setAttribute('aria-expanded', 'false');
-  });
-})();
+
 
 /* ---------- penetration diagram ---------- */
 (function penDiagram() {
