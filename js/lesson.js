@@ -1,9 +1,5 @@
 /* ============================================================
    Lesson interactions
-   - Hero: a coarse pixel grid where particle "tracks" flash,
-     echoing what the MiniPIX sensor does. Respects reduced motion.
-   - Flip cards for alpha / beta / gamma.
-   - Pixet Basic hotspots.
    ============================================================ */
 
 (function heroPixels() {
@@ -455,4 +451,153 @@ document.querySelectorAll('.misc-item').forEach(item => {
   wrap.appendChild(resetBtn);
 
   draw();
+})();
+
+/* ---------- exponential decay animated graphs ---------- */
+(function decayGraphs() {
+
+  function setupCanvas(canvas) {
+    const DPR = window.devicePixelRatio || 1;
+    const W = canvas.parentElement.offsetWidth || 340;
+    const H = 200;
+    canvas.width  = W * DPR;
+    canvas.height = H * DPR;
+    canvas.style.width  = W + 'px';
+    canvas.style.height = H + 'px';
+    const ctx = canvas.getContext('2d');
+    ctx.scale(DPR, DPR);
+    return { ctx, W, H };
+  }
+
+  const PAD = { top: 24, right: 16, bottom: 44, left: 52 };
+
+  function axes(ctx, W, H, xLabel, yLabel, xTicks, yTicks) {
+    const pw = W - PAD.left - PAD.right;
+    const ph = H - PAD.top - PAD.bottom;
+
+    ctx.strokeStyle = '#ccc'; ctx.lineWidth = 1;
+    // grid
+    yTicks.forEach(t => {
+      const y = PAD.top + ph - (t.v / yTicks[yTicks.length-1].v) * ph;
+      ctx.beginPath(); ctx.moveTo(PAD.left, y); ctx.lineTo(PAD.left + pw, y);
+      ctx.setLineDash([3,3]); ctx.stroke(); ctx.setLineDash([]);
+    });
+
+    // axes
+    ctx.strokeStyle = '#888'; ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(PAD.left, PAD.top); ctx.lineTo(PAD.left, PAD.top + ph);
+    ctx.lineTo(PAD.left + pw, PAD.top + ph);
+    ctx.stroke();
+
+    ctx.font = '10px "Open Sans",sans-serif';
+    ctx.fillStyle = '#666'; ctx.textAlign = 'right';
+    yTicks.forEach(t => {
+      const y = PAD.top + ph - (t.v / yTicks[yTicks.length-1].v) * ph;
+      ctx.fillText(t.label, PAD.left - 5, y + 4);
+    });
+
+    ctx.textAlign = 'center';
+    xTicks.forEach(t => {
+      const x = PAD.left + (t.i / (xTicks.length - 1)) * pw;
+      ctx.fillText(t.label, x, PAD.top + ph + 14);
+    });
+
+    // axis labels
+    ctx.save();
+    ctx.translate(12, PAD.top + ph / 2);
+    ctx.rotate(-Math.PI / 2);
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#555'; ctx.font = '11px "Open Sans",sans-serif';
+    ctx.fillText(yLabel, 0, 0);
+    ctx.restore();
+    ctx.textAlign = 'center'; ctx.fillStyle = '#555';
+    ctx.fillText(xLabel, PAD.left + pw / 2, H - 4);
+  }
+
+  function animateCurve(canvas, dataFn, color, xLabel, yLabel, xTicks, yTicks, btn) {
+    const { ctx, W, H } = setupCanvas(canvas);
+    const pw = W - PAD.left - PAD.right;
+    const ph = H - PAD.top - PAD.bottom;
+    const maxY = yTicks[yTicks.length - 1].v;
+    const STEPS = 80;
+    let step = 0;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function frame() {
+      ctx.clearRect(0, 0, W, H);
+      axes(ctx, W, H, xLabel, yLabel, xTicks, yTicks);
+
+      ctx.beginPath();
+      ctx.strokeStyle = color; ctx.lineWidth = 2.5;
+      ctx.lineJoin = 'round'; ctx.setLineDash([]);
+
+      for (let i = 0; i <= step; i++) {
+        const t = i / STEPS;
+        const x = PAD.left + t * pw;
+        const y = PAD.top + ph - (dataFn(t) / maxY) * ph;
+        i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+
+      // dot at current tip
+      const tipT = step / STEPS;
+      const tipX = PAD.left + tipT * pw;
+      const tipY = PAD.top + ph - (dataFn(tipT) / maxY) * ph;
+      ctx.beginPath();
+      ctx.arc(tipX, tipY, 4, 0, Math.PI * 2);
+      ctx.fillStyle = color; ctx.fill();
+
+      if (step < STEPS) {
+        step += reduce ? STEPS : 1;
+        requestAnimationFrame(frame);
+      } else {
+        btn.textContent = 'Replay';
+        btn.disabled = false;
+      }
+    }
+
+    // draw axes first
+    ctx.clearRect(0, 0, W, H);
+    axes(ctx, W, H, xLabel, yLabel, xTicks, yTicks);
+    frame();
+  }
+
+  // Graph 1: N/N0 = (0.5)^t, t in half-lives 0 to 10
+  const canvas1 = document.getElementById('decayCanvas1');
+  const btn1    = document.getElementById('decayBtn1');
+  if (canvas1 && btn1) {
+    const yT1 = [{v:0,label:'0'},{v:250,label:'250'},{v:500,label:'500'},{v:750,label:'750'},{v:1000,label:'1000'}];
+    const xT1 = Array.from({length:11},(_,i)=>({i,label: i===0?'0': i+'t½'}));
+    btn1.addEventListener('click', () => {
+      btn1.disabled = true; btn1.textContent = 'Drawing…';
+      animateCurve(canvas1,
+        t => 1000 * Math.pow(0.5, t * 10),
+        '#f08081',
+        'Time in half-lives', 'Nuclei (×10³)',
+        xT1, yT1, btn1);
+    });
+    // draw static axes on load
+    const {ctx:c1, W:w1, H:h1} = setupCanvas(canvas1);
+    axes(c1, w1, h1, 'Time in half-lives', 'Nuclei (×10³)', xT1, yT1);
+  }
+
+  // Graph 2: counts/min = 80 * e^(-t/3.5), t in days 0 to 10
+  const canvas2 = document.getElementById('decayCanvas2');
+  const btn2    = document.getElementById('decayBtn2');
+  if (canvas2 && btn2) {
+    const yT2 = [{v:0,label:'0'},{v:20,label:'20'},{v:40,label:'40'},{v:60,label:'60'},{v:80,label:'80'}];
+    const xT2 = Array.from({length:11},(_,i)=>({i,label:String(i)}));
+    btn2.addEventListener('click', () => {
+      btn2.disabled = true; btn2.textContent = 'Drawing…';
+      animateCurve(canvas2,
+        t => 80 * Math.exp(-t * 10 / 3.5),
+        '#1ebcba',
+        'Time (days)', 'Counts per minute',
+        xT2, yT2, btn2);
+    });
+    const {ctx:c2, W:w2, H:h2} = setupCanvas(canvas2);
+    axes(c2, w2, h2, 'Time (days)', 'Counts per minute', xT2, yT2);
+  }
+
 })();

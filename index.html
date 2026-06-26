@@ -26,6 +26,7 @@
         <ul class="topnav__list" role="list">
           <li><a class="topnav__link" href="#theory">Theory</a></li>
           <li><a class="topnav__link" href="#detector">The Detector</a></li>
+          <li><a class="topnav__link" href="#decay">Decay</a></li>
           <li class="topnav__has-drop">
             <button class="topnav__link topnav__drop-toggle">Activities</button>
             <ul class="topnav__dropdown" role="list">
@@ -280,57 +281,17 @@
                     >
                       <rect width="120" height="120" fill="#003d78" />
                       <rect
-                        x="22"
-                        y="30"
-                        width="7"
-                        height="7"
-                        fill="#b6e1df"
-                        opacity="0.9"
-                      />
-                      <rect
-                        x="70"
-                        y="18"
-                        width="7"
-                        height="7"
-                        fill="#b6e1df"
-                        opacity="0.8"
-                      />
-                      <rect
-                        x="45"
-                        y="55"
+                        x="57"
+                        y="57"
                         width="7"
                         height="7"
                         fill="#b6e1df"
                         opacity="0.95"
                       />
-                      <rect
-                        x="90"
-                        y="62"
-                        width="7"
-                        height="7"
-                        fill="#b6e1df"
-                        opacity="0.75"
-                      />
-                      <rect
-                        x="30"
-                        y="82"
-                        width="7"
-                        height="7"
-                        fill="#b6e1df"
-                        opacity="0.85"
-                      />
-                      <rect
-                        x="80"
-                        y="88"
-                        width="7"
-                        height="7"
-                        fill="#b6e1df"
-                        opacity="0.7"
-                      />
                     </svg>
                     <span class="track-label"
-                      >Scattered single dots. Gamma deposits energy at isolated
-                      points, leaving no connected path.</span
+                      >A single dot. Gamma deposits energy at isolated points,
+                      leaving no connected path.</span
                     >
                   </span>
                 </span>
@@ -786,6 +747,87 @@
         </div>
       </section>
 
+      <!-- ============ EXPONENTIAL DECAY ============ -->
+      <section class="part part--alt" id="decay">
+        <div class="wrap">
+          <h2 class="part__title">Exponential decay</h2>
+          <p class="decay-intro">
+            Several activities ask you to watch a count fall over time. The
+            pattern it follows is called exponential decay, and it is one of the
+            most recognisable shapes in science. Understanding it before you
+            measure will help you know whether your data looks right.
+          </p>
+
+          <div class="decay-grid">
+            <!-- GRAPH 1: theoretical half-life curve -->
+            <div class="decay-card">
+              <h3>What the physics says</h3>
+              <p>
+                Every radioactive nucleus has a fixed chance of decaying in any
+                given second. That means the more nuclei you start with, the
+                faster the count falls. But as the count falls, so does the rate
+                of falling. The result is a curve that drops steeply at first
+                and flattens out, always halving in the same amount of time.
+                That fixed time is the half-life.
+              </p>
+              <div class="decay-canvas-wrap">
+                <canvas
+                  id="decayCanvas1"
+                  class="decay-canvas"
+                  height="200"
+                ></canvas>
+              </div>
+              <button class="decay-trigger" id="decayBtn1">
+                Draw the curve
+              </button>
+              <p class="decay-label">
+                Number of nuclei vs time in half-lives. Each step halves what
+                remains.
+              </p>
+            </div>
+
+            <!-- GRAPH 2: experimental counts curve -->
+            <div class="decay-card">
+              <h3>What your data will look like</h3>
+              <p>
+                When you measure with the detector, you count particle hits per
+                unit time rather than nuclei directly. The shape is the same
+                curve, but the axes change. Your counts will start high and fall
+                in the same halving pattern. Small bumps and dips are normal,
+                because radioactive decay is random and each measurement has
+                natural scatter.
+              </p>
+              <div class="decay-canvas-wrap">
+                <canvas
+                  id="decayCanvas2"
+                  class="decay-canvas"
+                  height="200"
+                ></canvas>
+              </div>
+              <button class="decay-trigger" id="decayBtn2">
+                Draw the curve
+              </button>
+              <p class="decay-label">
+                Counts per minute vs time in days, as you might see in Activity
+                3 or Activity 5.
+              </p>
+            </div>
+          </div>
+
+          <article class="card" style="margin-top: 10px">
+            <h3>The key idea to carry to the bench</h3>
+            <p>
+              If your count is falling and the fall is slowing down, you are
+              looking at exponential decay. You do not need to see the full
+              curve to recognise it. A few points that roughly halve over equal
+              time intervals is enough. In Activity 3 the half-life is roughly
+              50 minutes. In Activity 4 you will use your count to estimate a
+              half-life that is over a billion years.
+            </p>
+          </article>
+        </div>
+      </section>
+
       <!-- ============ ACTIVITIES ============ -->
       <section class="part" id="activities">
         <div class="wrap">
@@ -895,7 +937,7 @@
             >CC BY-SA 4.0</a
           >.
         </p>
-        <p class="foot__flag">Prototype. Not for classroom release.</p>
+        <p class="foot__flag">Prototype for review.</p>
       </div>
     </footer>
 
