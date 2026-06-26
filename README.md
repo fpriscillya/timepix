@@ -127,17 +127,16 @@ bottom of each activity HTML file.
 
 | Feature                                           | Where                                                              |
 | ------------------------------------------------- | ------------------------------------------------------------------ |
-| Hero pixel animation                              | `lesson.js`  function `heroPixels()`                              |
-| Flip cards (particle types)                       | `lesson.js`  `querySelectorAll('.flip')` block                    |
-| Pixet hotspots                                    | `lesson.js`  function `hotspots()`                                |
-| Misconceptions tap-to-reveal                      | `lesson.js`  `querySelectorAll('.misc-item')` block               |
-| Penetration diagram (animated arrows)             | `lesson.js`  function `penCanvas()`                               |
-| Nav active-state on scroll                        | `lesson.js`  function `navScroll()`                               |
+| Hero pixel animation                              | `lesson.js` — function `heroPixels()`                              |
+| Flip cards (particle types)                       | `lesson.js` — `querySelectorAll('.flip')` block                    |
+| Pixet hotspots                                    | `lesson.js` — function `hotspots()`                                |
+| Misconceptions tap-to-reveal                      | `lesson.js` — `querySelectorAll('.misc-item')` block               |
+| Penetration diagram (animated arrows)             | `lesson.js` — function `penCanvas()`                               |
+| Nav active-state on scroll                        | `lesson.js` — function `navScroll()`                               |
 | Prediction click-to-select (activity 1 and 2)     | Inline `<script>` at bottom of each file                           |
 | Drag-and-drop ranking (activity 2)                | Inline `<script>` in `activity-2.html`                             |
 | Interactive radio predictions (activities 3 to 5) | Inline `<script>` at bottom of each file                           |
 | Prediction summary box                            | Triggered at the end of each lock-in handler in each activity file |
-
 
 ---
 
@@ -146,4 +145,3 @@ bottom of each activity HTML file.
 Physics and detector content is adapted from the MEDRA project teacher guide
 (C. Cabo, MediPIX/CERN, Universidade de Santiago de Compostela) and the
 TIMEPIX@school Student Guide (2026, CC BY-SA 4.0).
-
