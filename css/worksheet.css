@@ -1,7 +1,5 @@
 /* ============================================================
    Worksheet styles  (loads AFTER styles.css, reuses its tokens)
-   Fill-and-print model: type into fields, then Print or Save as PDF.
-   Capture, do not compute. No field calculates anything for the student.
    ============================================================ */
 
 body.ws { background: var(--bg-soft); }
@@ -245,4 +243,14 @@ textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
 .pred-summary__note {
   margin-top: 14px; font-size: .88rem;
   color: var(--ink-60); font-style: italic;
+}
+
+/* ---------- activity hero illustration ---------- */
+.sheet__hero-img {
+  display: block;
+  height: 160px;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  margin: 0 0 22px;
 }
