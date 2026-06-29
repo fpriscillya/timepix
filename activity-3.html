@@ -111,73 +111,73 @@
         <h2>Record your alpha counts</h2>
         <p class="guide">
           Count alpha particles only. For each 10-minute sample record the
-          count, then calculate the activity yourself and write it in the third
-          column.
+          count in the second column. The activity in becquerels will calculate
+          automatically.
         </p>
 
-        <table class="ws-table">
+        <table class="ws-table" id="decayTable">
           <thead>
             <tr>
               <th>Time (s)</th>
               <th>Alpha particles counted</th>
-              <th>Activity (Bq) = count divided by 600</th>
+              <th>Activity (Bq)</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td class="fixed">0</td>
-              <td><input type="text" /></td>
-              <td><input type="text" /></td>
+              <td><input type="number" class="count-input" data-row="0" min="0" step="1" placeholder="0"></td>
+              <td><input type="text" class="activity-output" data-row="0" readonly tabindex="-1" style="background:#f0faf9;color:#0e6b69;font-weight:700;cursor:default;"></td>
             </tr>
             <tr>
               <td class="fixed">600</td>
-              <td><input type="text" /></td>
-              <td><input type="text" /></td>
+              <td><input type="number" class="count-input" data-row="1" min="0" step="1" placeholder="0"></td>
+              <td><input type="text" class="activity-output" data-row="1" readonly tabindex="-1" style="background:#f0faf9;color:#0e6b69;font-weight:700;cursor:default;"></td>
             </tr>
             <tr>
               <td class="fixed">1200</td>
-              <td><input type="text" /></td>
-              <td><input type="text" /></td>
+              <td><input type="number" class="count-input" data-row="2" min="0" step="1" placeholder="0"></td>
+              <td><input type="text" class="activity-output" data-row="2" readonly tabindex="-1" style="background:#f0faf9;color:#0e6b69;font-weight:700;cursor:default;"></td>
             </tr>
             <tr>
               <td class="fixed">1800</td>
-              <td><input type="text" /></td>
-              <td><input type="text" /></td>
+              <td><input type="number" class="count-input" data-row="3" min="0" step="1" placeholder="0"></td>
+              <td><input type="text" class="activity-output" data-row="3" readonly tabindex="-1" style="background:#f0faf9;color:#0e6b69;font-weight:700;cursor:default;"></td>
             </tr>
             <tr>
               <td class="fixed">2400</td>
-              <td><input type="text" /></td>
-              <td><input type="text" /></td>
+              <td><input type="number" class="count-input" data-row="4" min="0" step="1" placeholder="0"></td>
+              <td><input type="text" class="activity-output" data-row="4" readonly tabindex="-1" style="background:#f0faf9;color:#0e6b69;font-weight:700;cursor:default;"></td>
             </tr>
             <tr>
               <td class="fixed">3000</td>
-              <td><input type="text" /></td>
-              <td><input type="text" /></td>
+              <td><input type="number" class="count-input" data-row="5" min="0" step="1" placeholder="0"></td>
+              <td><input type="text" class="activity-output" data-row="5" readonly tabindex="-1" style="background:#f0faf9;color:#0e6b69;font-weight:700;cursor:default;"></td>
             </tr>
             <tr>
               <td class="fixed">3600</td>
-              <td><input type="text" /></td>
-              <td><input type="text" /></td>
+              <td><input type="number" class="count-input" data-row="6" min="0" step="1" placeholder="0"></td>
+              <td><input type="text" class="activity-output" data-row="6" readonly tabindex="-1" style="background:#f0faf9;color:#0e6b69;font-weight:700;cursor:default;"></td>
             </tr>
             <tr>
               <td class="fixed">4200</td>
-              <td><input type="text" /></td>
-              <td><input type="text" /></td>
+              <td><input type="number" class="count-input" data-row="7" min="0" step="1" placeholder="0"></td>
+              <td><input type="text" class="activity-output" data-row="7" readonly tabindex="-1" style="background:#f0faf9;color:#0e6b69;font-weight:700;cursor:default;"></td>
             </tr>
             <tr>
               <td class="fixed">4800</td>
-              <td><input type="text" /></td>
-              <td><input type="text" /></td>
+              <td><input type="number" class="count-input" data-row="8" min="0" step="1" placeholder="0"></td>
+              <td><input type="text" class="activity-output" data-row="8" readonly tabindex="-1" style="background:#f0faf9;color:#0e6b69;font-weight:700;cursor:default;"></td>
             </tr>
             <tr>
               <td class="fixed">5400</td>
-              <td><input type="text" /></td>
-              <td><input type="text" /></td>
+              <td><input type="number" class="count-input" data-row="9" min="0" step="1" placeholder="0"></td>
+              <td><input type="text" class="activity-output" data-row="9" readonly tabindex="-1" style="background:#f0faf9;color:#0e6b69;font-weight:700;cursor:default;"></td>
             </tr>
             <tr>
               <td class="fixed">6000</td>
-              <td><input type="text" /></td>
-              <td><input type="text" /></td>
+              <td><input type="number" class="count-input" data-row="10" min="0" step="1" placeholder="0"></td>
+              <td><input type="text" class="activity-output" data-row="10" readonly tabindex="-1" style="background:#f0faf9;color:#0e6b69;font-weight:700;cursor:default;"></td>
             </tr>
           </tbody>
         </table>
@@ -243,6 +243,22 @@
           (a2 ? a2.closest(".iradio").textContent.trim() : "No answer") +
           "</span></li>";
         document.getElementById("summary3").classList.add("show");
+      });
+    </script>
+
+    <script>
+      // Auto-calculate Activity = count / 600
+      document.querySelectorAll('.count-input').forEach(input => {
+        input.addEventListener('input', () => {
+          const row = input.dataset.row;
+          const output = document.querySelector('.activity-output[data-row="' + row + '"]');
+          const val = parseFloat(input.value);
+          if (!isNaN(val) && val >= 0) {
+            output.value = (val / 600).toFixed(4);
+          } else {
+            output.value = '';
+          }
+        });
       });
     </script>
   </body>
