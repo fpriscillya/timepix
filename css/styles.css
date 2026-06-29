@@ -1067,3 +1067,20 @@ cite {
     grid-template-columns: 1fr;
   }
 }
+
+/* ---------- card with image left, text right ---------- */
+.card-split {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+}
+.card-split__img {
+  flex-shrink: 0;
+  width: 180px;
+  object-fit: contain;
+}
+.card-split__body { flex: 1; min-width: 0; }
+@media (max-width: 580px) {
+  .card-split { flex-direction: column; }
+  .card-split__img { width: 100%; max-height: 180px; }
+}

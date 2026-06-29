@@ -414,7 +414,17 @@
               they look similar to gamma, scattered single-pixel dots, so the
               two are hard to tell apart without energy calibration.
             </div>
-
+            <img
+              src="assets/satellite.png"
+              alt=""
+              style="
+                display: block;
+                margin: 16px auto;
+                width: 260px;
+                max-width: 100%;
+              "
+              onerror="this.style.display = 'none'"
+            />
             <div class="penetration">
               <h4>How far each type gets through matter</h4>
               <p>
@@ -451,46 +461,54 @@
 
           <article class="card card--tint">
             <h3>It is all around us</h3>
-            <div class="card-deco-wrap">
+            <div class="card-split">
+              <div class="card-split__body">
+                <p>
+                  You do not need a special source to find radiation. It is
+                  everywhere, all the time. For most people the biggest natural
+                  source is <strong>radon</strong>, a gas that seeps out of the
+                  ground and collects indoors. Add to that radiation from rocks,
+                  from food, and from space.
+                </p>
+                <p>
+                  About 80 percent of the radiation an average person meets in a
+                  year is natural, and the total can vary by more than a hundred
+                  times depending on where you live. Radiation is normal. The
+                  job is to measure it, not to fear it.
+                </p>
+              </div>
               <img
-                src="assets/banana.png"
+                src="assets/rock.png"
                 alt=""
-                class="card-deco"
+                class="card-split__img"
                 onerror="this.style.display = 'none'"
               />
             </div>
-            <p>
-              You do not need a special source to find radiation. It is
-              everywhere, all the time. For most people the biggest natural
-              source is <strong>radon</strong>, a gas that seeps out of the
-              ground and collects indoors. Add to that radiation from rocks,
-              from food, and from space.
-            </p>
-            <p>
-              About 80 percent of the radiation an average person meets in a
-              year is natural, and the total can vary by more than a hundred
-              times depending on where you live. Radiation is normal. The job is
-              to measure it, not to fear it.
-            </p>
-            <img
-              src="assets/rock.png"
-              alt=""
-              class="card-deco"
-              onerror="this.style.display = 'none'"
-            />
           </article>
 
           <article class="card">
             <h3>From space</h3>
-            <p>
-              Some radiation arrives from space.
-              <strong>Cosmic rays</strong> are particles travelling at nearly
-              the speed of light, mostly protons, coming from the Sun and from
-              violent events far away such as exploding stars. When they hit the
-              upper atmosphere they smash into atoms and create showers of new
-              particles. The muons you saw on the flip card are one of those
-              secondaries. The higher you go, the more of them there are.
-            </p>
+            <div class="card-split">
+              <img
+                src="assets/earth.png"
+                alt=""
+                class="card-split__img"
+                style="width: 260px"
+                onerror="this.style.display = 'none'"
+              />
+              <div class="card-split__body">
+                <p>
+                  Some radiation arrives from space.
+                  <strong>Cosmic rays</strong> are particles travelling at
+                  nearly the speed of light, mostly protons, coming from the Sun
+                  and from violent events far away such as exploding stars. When
+                  they hit the upper atmosphere they smash into atoms and create
+                  showers of new particles. The muons you saw on the flip card
+                  are one of those secondaries. The higher you go, the more of
+                  them there are.
+                </p>
+              </div>
+            </div>
           </article>
 
           <article class="card card--tint" id="misconceptions">
@@ -605,20 +623,23 @@
 
           <article class="card">
             <h3>What it is</h3>
-            <div class="card-deco-wrap">
+            <div class="card-split">
               <img
                 src="assets/MiniPIX.png"
                 alt=""
-                class="card-deco"
+                class="card-split__img"
                 onerror="this.style.display = 'none'"
               />
+              <div class="card-split__body">
+                <p>
+                  The MiniPIX is a tiny radiation camera. It was designed at
+                  CERN, the giant physics lab in Switzerland, and the same kind
+                  of chip is used in space to watch the radiation around
+                  astronauts. What it does is turn something invisible into a
+                  picture you can see.
+                </p>
+              </div>
             </div>
-            <p>
-              The MiniPIX is a tiny radiation camera. It was designed at CERN,
-              the giant physics lab in Switzerland, and the same kind of chip is
-              used in space to watch the radiation around astronauts. What it
-              does is turn something invisible into a picture you can see.
-            </p>
             <figure class="media">
               <img
                 src="assets/minipix.jpg"
@@ -637,8 +658,8 @@
               those marks is the whole game.
             </p>
             <p class="readout">
-              256 &times; 256 pixels &nbsp;·&nbsp; up to 45 frames per second
-              &nbsp;·&nbsp; 1 ms minimum exposure
+              256 &times; 256 pixels &nbsp; up to 45 frames per second &nbsp; 1
+              ms minimum exposure
             </p>
             <p class="note">
               Different particles leave very different marks. Go back to Theory
@@ -822,6 +843,17 @@
             </p>
           </article>
         </div>
+        <img
+          src="assets/airplane.png"
+          alt=""
+          style="
+            display: block;
+            margin: 16px auto;
+            width: 260px;
+            max-width: 100%;
+          "
+          onerror="this.style.display = 'none'"
+        />
       </section>
 
       <!-- ============ ACTIVITIES ============ -->
